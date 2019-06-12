@@ -1,5 +1,7 @@
 package com.lambdaschool.zoo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +16,17 @@ public class Zoo {
 
     private String zooname;
 
-    @OneToMany(mappedBy = "zoo")
+    @OneToMany(mappedBy = "zoo",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties("zoo")
     private List<Telephone> telephones = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "zooanimals",
             joinColumns = {@JoinColumn(name = "zooid")},
             inverseJoinColumns = {@JoinColumn(name = "animalid")})
+    @JsonIgnoreProperties("zoos")
     private List<Animal> animals = new ArrayList<>();
 
     public Zoo() {
@@ -30,9 +36,10 @@ public class Zoo {
         this.zooname = zooname;
     }
 
-    public Zoo(String zooname, List<Telephone> telephones) {
+    public Zoo(String zooname, List<Telephone> telephones, List<Animal> animals) {
         this.zooname = zooname;
         this.telephones = telephones;
+        this.animals = animals;
     }
 
     public long getZooid() {
@@ -57,5 +64,13 @@ public class Zoo {
 
     public void setTelephones(List<Telephone> telephones) {
         this.telephones = telephones;
+    }
+
+    public List<Animal> getAnimals() {
+        return animals;
+    }
+
+    public void setAnimals(List<Animal> animals) {
+        this.animals = animals;
     }
 }
