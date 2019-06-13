@@ -2,6 +2,7 @@ package com.lambdaschool.zoo.services;
 
 import com.lambdaschool.zoo.models.Zoo;
 import com.lambdaschool.zoo.repos.ZooRepository;
+import com.lambdaschool.zoo.views.CountAnimalsPerZoo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +24,10 @@ public class ZooServiceImpl implements ZooService{
     @Override
     public void delete(long id) {
 
+    }
+
+    @Override
+    public ArrayList<CountAnimalsPerZoo> getCountAnimalsPerZoo() {
+        return zoorepo.getCountAnimalsPerZoo();
     }
 }

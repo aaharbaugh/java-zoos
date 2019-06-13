@@ -18,4 +18,10 @@ public class ZooController {
     {
         return new ResponseEntity<>(zooService.findAll(), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/animal/count", produces = {"application/json"})
+    public ResponseEntity<?> getAnimalsPerZoo()
+    {
+        return new ResponseEntity<>(zooService.getCountAnimalsPerZoo(), HttpStatus.OK);
+    }
 }
